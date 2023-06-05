@@ -1,0 +1,31 @@
+.menu-button {
+    display: inline-block;
+    padding: 10px;
+    margin-right: 5px;
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .menu-button:hover {
+    background-color: #88bd9e;
+    color: #000;
+    text-decoration: none;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .menu-button.active {
+    background-color: #88bd9e;
+    color: #000;
+  }
+
+  #menu {
+    background-color: #797474;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border-radius: 8px; /* Avrundade hörnor med radie 8px */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+  }

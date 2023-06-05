@@ -1,7 +1,7 @@
 const express = require('express');
-const serveStatic = require('serve-static');
-var ping = require('ping');
-const https = require('https');
+const serveStatic = require('serve-static');;
+const fetch = require('node-fetch');
+const fs = require('fs');
 
 const app = express();
 
@@ -18,34 +18,49 @@ const port = clientPort;
 var hosts = [serverIp];
 app.listen(port, () => {
   console.log(`Servern körs på port ${port}`);
-  hosts.forEach(function (host) {
-    ping.promise.probe(host)
-        .then(function (res) {
-            if (res.alive == true) {
-              console.log(`conected to server on ${serverIp}:${serverPort}`);
-            }
-        });
-});
+
 });
 
-https.get(serverIp + ":" + serverPort + "/api/alive", res => {
-  let data = [];
-  const headerDate = res.headers && res.headers.date ? res.headers.date : 'no response date';
-  console.log('Status Code:', res.statusCode);
-  console.log('Date in Response header:', headerDate);
+function getTitleFromHTML(filePath) {
+  const html = fs.readFileSync(filePath, 'utf-8');
+  const match = /<title>(.*?)<\/title>/i.exec(html);
+  return match && match[1];
+}
 
-  res.on('data', chunk => {
-    data.push(chunk);
-  });
+function generateMenu() {
+  const direktory = 'www/';
+  const files = fs.readdirSync(direktory);
 
-  res.on('end', () => {
-    console.log('Response ended: ');
-    const users = JSON.parse(Buffer.concat(data).toString());
+  const menuItems = files
+    .filter(file => file.endsWith('.html'))
+    .map(file => {
+      const filePath = direktory + file;
+      const title = getTitleFromHTML(filePath);
+      return {
+        title: title || 'Okänd sida',
+        url: `/${file}`,
+        id: file.substring(0,file.lastIndexOf('.html'))
+      };
+    });
 
-    for(user of users) {
-      console.log(`Got user with id: ${user.id}, name: ${user.name}`);
+  return menuItems;
+}
+
+app.get('/server/alive', (req, res) => {
+  (async () => {
+    try {
+  
+      const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/alive');
+      const json = await response.json()
+
+      // console.log(json);
+      return res.json(json);
+    } catch (error) {
+      return res.json({alive: false});
     }
-  });
-}).on('error', err => {
-  console.log('Error: ', err.message);
+  })();
+});
+
+app.get('/api/menu', (req, res) => {
+  res.json(generateMenu());
 });
