@@ -1,3 +1,17 @@
+function getUserNameFromCookie() {
+  var cookies = document.cookie.split("; ");
+  //console.log(cookies);
+  for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i].split("=");
+    //console.log(cookie);
+    if (cookie[0] === "userName") {
+      //console.log(cookie[1]);
+      return cookie[1];
+    }
+  }
+  return null; // Om cookien inte hittas
+}
+
 $(document).ready(function() {
   $.ajax({
     url: '/api/menu',
@@ -41,9 +55,34 @@ $(document).ready(function() {
       
       // Uppdatera menyn i HTML-elementet med id "menu"
       $('#menu').html(downloadButtons);
+      var userName = getUserNameFromCookie();
+      //console.log(userName);
+      if (userName !== null) {
+        $('#menu').append('<class="user-menu-contaner"> <a id="user-button" class="menu-button userName" onclick="toggleDropdown()">' + userName + '</a>');
+        $('#menu').append('<div id="dropdown-menu" class="dropdown-menu">'+ 
+        ' <a id="logOut-button" class="menu-button logout" onclick="logOut()">Logga ut</a> </div>');
+      }
     },
     error: function(xhr, status, error) {
       console.error('Ett fel uppstod:', error);
     }
+    
   });
 });
+
+function clearCookie(cookieName) {
+  document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+function logOut() {
+  document.cookie = "userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.getElementById("user-button").remove();
+  document.getElementById("loggouy-button").remove();
+}
+
+function toggleDropdown() {
+  var dropdownMenu = document.getElementById("dropdown-menu");
+  dropdownMenu.style.display = (dropdownMenu.style.display === "flex") ? "none" : "flex";
+}
