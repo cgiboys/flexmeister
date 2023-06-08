@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/menu.js"></script>
     <script src="js/time.js"></script>
     <link rel="stylesheet" href="css/time.css">
@@ -14,9 +15,22 @@
 </head>
 
 <body>
+    <div id="menu"> </div>
     <div class="time-container">
-
-    </div>
+        <button type="button" onclick="getUserTime(100)">Get time of user 1000</button>
+        <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Times</th>
+                  <th>Dates</th>
+                </tr>
+              </thead>
+              <tbody id="time-table-body">
+                <!-- Tabellrader genereras dynamiskt via JavaScript -->
+              </tbody>
+            </table>
+          </div>
 </body>
 
 </html>

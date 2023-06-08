@@ -61,6 +61,21 @@ app.get('/server/alive', (req, res) => {
   })();
 });
 
+app.get('/server/get-alltime-of-user', (req, res) => {
+  (async () => {
+    try {
+      const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/get-alltime-of-user?userId=' + req.query.userId);
+      const json = await response.json()
+      //console.log(json);
+      //console.log(req.query.userId);
+      //console.log("Från servern");
+      return res.json(json);
+    } catch (error) {
+      console.log(error);
+    }
+  })();
+});
+
 app.get('/api/menu', (req, res) => {
   res.json(generateMenu());
 });
