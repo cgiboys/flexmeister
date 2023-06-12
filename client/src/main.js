@@ -76,6 +76,21 @@ app.get('/server/get-alltime-of-user', (req, res) => {
   })();
 });
 
+app.get('/server/add-time-to-user', (req, res) => {
+  (async () => {
+    try {
+      const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/add-time-to-user?userId=' + req.query.userId);
+      const json = await response.json()
+      //console.log(json);
+      //console.log(req.query.userId);
+      //console.log("Från servern");
+      return res.json(json);
+    } catch (error) {
+      console.log(error);
+    }
+  })();
+});
+
 app.get('/api/menu', (req, res) => {
   res.json(generateMenu());
 });
