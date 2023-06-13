@@ -80,7 +80,7 @@ function logOut() {
   document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   document.getElementById("user-button").remove();
   document.getElementById("logOut-button").remove();
-  toggleDropdown();
+  window.location = "/login.html";
 }
 
 function toggleDropdown() {

@@ -1,8 +1,11 @@
 
+var userId = 0;
 $(document).ready(function () {
-  var userId = getUserIdFromCookie();
+  userId = getUserIdFromCookie();
   if (userId != null) {
-    getUserTime(userId);
+    getUserTime();
+  } else {
+    window.location = '/login.html';
   }
 });
 
@@ -20,9 +23,9 @@ function getUserIdFromCookie() {
   return null; // Om cookien inte hittas
 }
 
-function getUserTime(inUserId) {
+function getUserTime() {
   $.ajax({
-    url: '/server/get-alltime-of-user?userId=' + inUserId,
+    url: '/server/get-alltime-of-user?userId=' + userId,
     type: 'GET',
     success: function (data) {
       var tableBody = $('#time-table-body');
@@ -58,9 +61,10 @@ function getUserTime(inUserId) {
 };
 
 function addUserTime() {
-  var flexTime = document.getElementById("timeInput").value
+  var flexTime = document.getElementById("timeInput").value;
+  console.log(flexTime);
   $.ajax({
-    url: '/server/add-time-to-user?userId=' + inUserId,
+    url: '/server/add-time-to-user?userId=' + userId,
     type: 'GET',
     success: function (data) {
 
@@ -70,3 +74,13 @@ function addUserTime() {
     }
   });
 };
+
+function togglePopup() {
+  var popup = document.getElementById("popup");
+  if (popup.classList.contains('hidden')) {
+    popup.classList.remove('hidden');
+  } else {
+    popup.classList.add('hidden');
+  }
+}
+

@@ -26,7 +26,7 @@ public class Api {
         // ---- remove ----
         if (userId.equals("100") ) {
             data.setUsername("Gustav");
-            data.setTimes(new int[]{1, 2, 3, 4, 5});
+            data.setTimes(new int[]{1, 2, 3, 4, -2});
             data.setDates(new LocalDate[]{LocalDate.of(2023, 6, 1), LocalDate.of(2023, 6, 2), LocalDate.of(2023, 6, 3), LocalDate.of(2023, 6, 4), LocalDate.of(2023, 6, 5)});
         } else {
             data.setUsername("No username");
