@@ -17,21 +17,27 @@
 
 <body>
   <div id="menu"> </div>
-  <div class="popup hidden">
+  <div id="popup" class="popup hidden">
     <div class="popup-content">
-      <span class="close">&times;</span>
+      <span class="close" onclick="togglePopup()">&times;</span>
       <h3>Lägg till nummer</h3>
-      <input type="number" id="numberInput">
-      <button id="addButton">Lägg till</button>
+      <input type="number" id="timeInput">
+      <button id="addButton" onclick="buttonAddUserTime()">Lägg till</button>
     </div>
   </div>
-  <div class="">
+  <div class="button">
 
   </div>
   <div class="time-container">
     <dfiv class="timeCard">
-      <div id="flexCount">
+      <div id="flexAdd" class="FlexElement back-read" onclick="togglePopup(true)">
+        <h2 id="addButton" class="">-</h2>
+      </div>
+      <div id="flexCounters" class="FlexElement">
         <h2 id="flexTotal" class="">+/-</h2>
+      </div>
+      <div id="flexAdd" class="FlexElement back-green" onclick="togglePopup(false)">
+        <h2 id="addButton" class="">+</h2>
       </div>
     </dfiv>
     <div class="table-responsive">
@@ -47,6 +53,12 @@
         </tbody>
       </table>
     </div>
+    <section>
+      <div class='air air1'></div>
+      <div class='air air2'></div>
+      <div class='air air3'></div>
+      <div class='air air4'></div>
+    </section>
 </body>
 
 </html>

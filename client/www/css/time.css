@@ -1,3 +1,7 @@
+body {
+    background: #3586ff;
+}
+
 .table {
     width: 100%;
     border-collapse: collapse;
@@ -10,15 +14,15 @@
 }
 
 .table thead {
-    background-color: #f1f1f1;
+    background-color: #f1f1f160;
 }
 
 .table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #f9f9f960;
 }
 
 .table tbody tr:hover {
-    background-color: #e8e8e8;
+    background-color: #e8e8e840;
 }
 
 .table-responsive {
@@ -27,7 +31,7 @@
 }
 
 
-#flexCount {
+.FlexElement {
     width: 300px;
     height: 300px;
     border-radius: 8%;
@@ -39,17 +43,24 @@
     margin: 0 auto;
 }
 
-#flexCount h2 {
+#flexAdd {
+    width: 200px;
+    height: 200px;
+}
+
+#flexCounters {
+    border-radius: 50%;
+}
+
+.FlexElement h2 {
     font-size: 80px;
     margin: 0;
 }
 
-#timeCard {
+.timeCard {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    margin: 0;
 }
 
 .back-green {
@@ -83,6 +94,7 @@
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     position: relative;
+    border-radius: 10px;
   }
   
   .popup .close {
@@ -106,4 +118,66 @@
     display: block;
     margin: 0 auto;
   }
-  
+
+  section{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 20vh;
+    background: #3586ff;
+    overflow: hidden;
+  }
+  section .air{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url(https://1.bp.blogspot.com/-xQUc-TovqDk/XdxogmMqIRI/AAAAAAAACvI/AizpnE509UMGBcTiLJ58BC6iViPYGYQfQCLcBGAsYHQ/s1600/wave.png);
+    background-size: 1000px 100px
+  }
+  section .air.air1{
+    animation: wave 30s linear infinite;
+    z-index: 1000;
+    opacity: 1;
+    animation-delay: 0s;
+    bottom: 0;
+  }
+  section .air.air2{
+    animation: wave2 15s linear infinite;
+    z-index: 999;
+    opacity: 0.5;
+    animation-delay: -5s;
+    bottom: 10px;
+  }
+  section .air.air3{
+    animation: wave 30s linear infinite;
+    z-index: 998;
+    opacity: 0.2;
+    animation-delay: -2s;
+    bottom: 15px;
+  }
+  section .air.air4{
+    animation: wave2 5s linear infinite;
+    z-index: 997;
+    opacity: 0.7;
+    animation-delay: -5s;
+    bottom: 20px;
+  }
+  @keyframes wave{
+    0%{
+      background-position-x: 0px; 
+    }
+    100%{
+      background-position-x: 1000px; 
+    }
+  }
+  @keyframes wave2{
+    0%{
+      background-position-x: 0px; 
+    }
+    100%{
+      background-position-x: -1000px; 
+    }
+  }

@@ -5,10 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @RestController
 @RequestMapping("/api")
 public class Api {
+    Sql mocks = new Sql();
+
     @GetMapping("/alive")
     public Alive alive() {
         Alive data = new Alive();
@@ -19,23 +22,18 @@ public class Api {
     @GetMapping("/get-alltime-of-user")
     // set usernam för att sedan sicka in data till en funktion för att fylla data.times[] och data.date[] med information 
     public UserTimeData userTimeData(@RequestParam String userId) {
-        UserTimeData data = new UserTimeData();
-        data.setUsername(userId);
-        //System.out.println("user input: " + userId);
 
-        // ---- remove ----
-        if (userId.equals("100") ) {
-            data.setUsername("Gustav");
-            data.setTimes(new int[]{1, 2, 3, 4, 5});
-            data.setDates(new LocalDate[]{LocalDate.of(2023, 6, 1), LocalDate.of(2023, 6, 2), LocalDate.of(2023, 6, 3), LocalDate.of(2023, 6, 4), LocalDate.of(2023, 6, 5)});
-        } else {
-            data.setUsername("No username");
-            data.setTimes(new int[]{1, 2, 3, 4, 5});
-            data.setDates(new LocalDate[]{LocalDate.of(2023, 6, 1), LocalDate.of(2023, 6, 2), LocalDate.of(2023, 6, 3), LocalDate.of(2023, 6, 4), LocalDate.of(2023, 6, 5)});
-        }
-        // ---- remove ----
-        // gör förfrågan till databas här
 
-        return data;
+        return mocks.getUserTimeDataByUserId(Integer.parseInt(userId));
+    }
+
+    @GetMapping("/add-time-to-user")
+    // set usernam för att sedan sicka in data till en funktion för att fylla data.times[] och data.date[] med information 
+    public Integer addTimeToUser(@RequestParam String userId,@RequestParam String time) {
+        int returnValue = 0;
+        //System.out.println("FlexTime: " + time);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        mocks.addTimeToUser(Integer.parseInt(userId), Integer.parseInt(time), LocalDate.now());
+        return returnValue;
     }
 }

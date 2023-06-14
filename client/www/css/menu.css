@@ -29,6 +29,7 @@
   /* Avrundade hörnor med radie 8px */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   padding: 10px;
+  margin-bottom: 10px;
 }
 
 #user-button {
