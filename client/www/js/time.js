@@ -25,6 +25,9 @@ function getUserIdFromCookie() {
 }
 
 function getUserTime() {
+  var itemMenu = '<div class="itemMenuButton">' +
+  '<div class="button-del-time">' + 'Del' + '</div>' +
+  '</div>';
   $.ajax({
     url: '/server/get-alltime-of-user?userId=' + userId,
     type: 'GET',
@@ -38,6 +41,7 @@ function getUserTime() {
         var row = '<tr>' +
           '<td>' + data.times[i] + '</td>' +
           '<td>' + data.dates[i] + '</td>' +
+          '<td>' + itemMenu + '</td>' +
           '</tr>';
 
         tableBody.append(row);
