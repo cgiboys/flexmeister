@@ -76,6 +76,20 @@ app.get('/server/get-alltime-of-user', (req, res) => {
   })();
 });
 
+app.get('/server/get-total-flex-time-of-user', (req, res) => {
+  (async () => {
+    try {
+      const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/get-total-flex-time-of-user?userId=' + req.query.userId);
+      const json = await response.json()
+      //console.log("from server: " + json);
+
+      return res.json(json);
+    } catch (error) {
+      console.log(error);
+    }
+  })();
+});
+
 app.get('/server/add-time-to-user', (req, res) => {
   (async () => {
     try {

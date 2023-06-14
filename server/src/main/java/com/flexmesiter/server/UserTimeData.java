@@ -47,4 +47,11 @@ class UserTimeData {
         this.Dates = tempDates;
         this.Times = tempTimes;
     }
+    public Integer getTotalFlexTime() {
+        Integer returnValue = 0;
+        for (int flexTime : this.Times) {
+            returnValue += flexTime;
+        }
+        return returnValue;
+    }
 }
