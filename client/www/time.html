@@ -22,7 +22,7 @@
       <span class="close" onclick="togglePopup()">&times;</span>
       <h3>Lägg till nummer</h3>
       <input type="number" id="timeInput">
-      <button id="addButton" onclick="addUserTime()">Lägg till</button>
+      <button id="addButton" onclick="buttonAddUserTime()">Lägg till</button>
     </div>
   </div>
   <div class="button">
@@ -30,13 +30,13 @@
   </div>
   <div class="time-container">
     <dfiv class="timeCard">
-      <div id="flexAdd" class="FlexElement back-read" onclick="togglePopup()">
+      <div id="flexAdd" class="FlexElement back-read" onclick="togglePopup(true)">
         <h2 id="addButton" class="">-</h2>
       </div>
-      <div id="flexCount" class="FlexElement">
+      <div id="flexCounters" class="FlexElement">
         <h2 id="flexTotal" class="">+/-</h2>
       </div>
-      <div id="flexAdd" class="FlexElement back-green" onclick="togglePopup()">
+      <div id="flexAdd" class="FlexElement back-green" onclick="togglePopup(false)">
         <h2 id="addButton" class="">+</h2>
       </div>
     </dfiv>

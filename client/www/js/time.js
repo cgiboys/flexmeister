@@ -30,7 +30,7 @@ function getUserTime() {
     success: function (data) {
       var tableBody = $('#time-table-body');
       var flexTotalH1 = $('#flexTotal');
-      var felxCount = $('#flexCount');
+      var felxCount = $('#flexCounters');
       //var menuUserIndikater = $('#menu');
       //var userName = '<a class="menu-button userName">' + data.username + '</a>'
       tableBody.empty(); // Rensa befintligt innehåll
@@ -49,7 +49,7 @@ function getUserTime() {
         flexTotalH1.text("+" + flexTotal + "H");
         felxCount.addClass("back-green");
       } else {
-        flexTotalH1.text("-" + flexTotal + "H");
+        flexTotalH1.text(flexTotal + "H");
         felxCount.addClass("back-read");
       }
       //menuUserIndikater.append(userName);
@@ -60,14 +60,16 @@ function getUserTime() {
   });
 };
 
-function addUserTime() {
-  var flexTime = document.getElementById("timeInput").value;
-  console.log(flexTime);
+function addUserTime(time, date) {
+  console.log(time + " : " + date);
   $.ajax({
-    url: '/server/add-time-to-user?userId=' + userId,
+    url: '/server/add-time-to-user?userId=' + userId  + 
+    '&time=' + time,
     type: 'GET',
     success: function (data) {
-
+      if (data == 1) {
+        console.log('user not found');
+      }
     },
     error: function (xhr, status, error) {
       console.error('Ett fel uppstod:', error);
@@ -75,12 +77,30 @@ function addUserTime() {
   });
 };
 
-function togglePopup() {
+function buttonAddUserTime() {
+  var input = document.getElementById("timeInput");
+  var today = new Date();
+  var year = today.getFullYear();
+  var month = ('0' + (today.getMonth() + 1)).slice(-2);
+  var day = ('0' + today.getDate()).slice(-2);
+  var dateString = year + '-' + month + '-' + day;
+  
+  addUserTime(input.value, dateString);
+  togglePopup(false);
+  getUserTime();
+}
+
+function togglePopup(negative) {
   var popup = document.getElementById("popup");
   if (popup.classList.contains('hidden')) {
     popup.classList.remove('hidden');
   } else {
     popup.classList.add('hidden');
+  }
+  if (negative) {
+    document.getElementById("timeInput").value = -1;
+  } else {
+    document.getElementById("timeInput").value = 1;
   }
 }
 

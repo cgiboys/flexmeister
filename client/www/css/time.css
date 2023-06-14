@@ -48,9 +48,8 @@ body {
     height: 200px;
 }
 
-#addButton {
-    align-items: center;
-    justify-content: center;
+#flexCounters {
+    border-radius: 50%;
 }
 
 .FlexElement h2 {
@@ -60,6 +59,8 @@ body {
 
 .timeCard {
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .back-green {
@@ -93,7 +94,7 @@ body {
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     position: relative;
-    border-radius: 8%;
+    border-radius: 10px;
   }
   
   .popup .close {
