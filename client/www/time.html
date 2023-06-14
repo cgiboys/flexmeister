@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/time.js"></script>
+  <link rel="stylesheet" href="css/time.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/colers.css">
+  <title>Flex</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+</head>
+
+<body>
+  <div id="menu"> </div>
+  <div id="popup" class="popup hidden">
+    <div class="popup-content">
+      <span class="close" onclick="togglePopup()">&times;</span>
+      <h3>Lägg till nummer</h3>
+      <input type="number" id="timeInput">
+      <button id="addButton" onclick="buttonAddUserTime()">Lägg till</button>
+    </div>
+  </div>
+  <div class="button">
+
+  </div>
+  <div class="time-container">
+    <dfiv class="timeCard">
+      <div id="flexAdd" class="FlexElement back-read" onclick="togglePopup(true)">
+        <h2 id="addButton" class="">-</h2>
+      </div>
+      <div id="flexCounters" class="FlexElement">
+        <h2 id="flexTotal" class="">+/-</h2>
+      </div>
+      <div id="flexAdd" class="FlexElement back-green" onclick="togglePopup(false)">
+        <h2 id="addButton" class="">+</h2>
+      </div>
+    </dfiv>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Times</th>
+            <th>Dates</th>
+          </tr>
+        </thead>
+        <tbody id="time-table-body">
+          <!-- Tabellrader genereras dynamiskt via JavaScript -->
+        </tbody>
+      </table>
+    </div>
+    <section>
+      <div class='air air1'></div>
+      <div class='air air2'></div>
+      <div class='air air3'></div>
+      <div class='air air4'></div>
+    </section>
+</body>
+
+</html>
