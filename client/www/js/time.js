@@ -129,9 +129,11 @@ function getTotalFlexTimeOfUser() {
       if (data > 0) {
         flexTotalLabel.text("+" + data + "H");
         felxCount.addClass("back-green");
+        felxCount.removeClass("back-red");
       } else {
         flexTotalLabel.text(data + "H");
-        felxCount.addClass("back-read");
+        felxCount.addClass("back-red");
+        felxCount.removeClass("back-green");
       }
     },
     error: function (xhr, status, error) {
