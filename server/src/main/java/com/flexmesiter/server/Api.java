@@ -22,8 +22,6 @@ public class Api {
     @GetMapping("/get-alltime-of-user")
     // set usernam för att sedan sicka in data till en funktion för att fylla data.times[] och data.date[] med information 
     public UserTimeData userTimeData(@RequestParam String userId) {
-
-
         return mocks.getUserTimeDataByUserId(Integer.parseInt(userId));
     }
 
@@ -35,5 +33,17 @@ public class Api {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         mocks.addTimeToUser(Integer.parseInt(userId), Integer.parseInt(time), LocalDate.now());
         return returnValue;
+    }
+
+    @GetMapping("/get-total-flex-time-of-user")
+    // set usernam för att sedan sicka in data till en funktion för att fylla data.times[] och data.date[] med information 
+    public Integer getTotalFlexTime(@RequestParam String userId) {
+        return mocks.getTotalFlexOfUser(Integer.parseInt(userId));
+    }
+
+    @GetMapping("/del-item-with-id-from-user")
+    // set usernam för att sedan sicka in data till en funktion för att fylla data.times[] och data.date[] med information 
+    public Integer delItemFromUser(@RequestParam String userId,@RequestParam String itemId) {
+        return mocks.delItemFromUser(Integer.parseInt(userId), Integer.parseInt(itemId));
     }
 }

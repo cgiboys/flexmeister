@@ -3,11 +3,16 @@ var userId = 0;
 $(document).ready(function () {
   userId = getUserIdFromCookie();
   if (userId != null) {
-    getUserTime();
+    UppdateraTabel();
   } else {
     window.location = '/login.html';
   }
 });
+
+function UppdateraTabel() {
+  getUserTime();
+  getTotalFlexTimeOfUser();
+}
 
 function getUserIdFromCookie() {
   var cookies = document.cookie.split("; ");
@@ -24,35 +29,27 @@ function getUserIdFromCookie() {
 }
 
 function getUserTime() {
+  var itemMenu = '<div class="itemMenuButton">' +
+  '<div class="button-del-time" onclick="delUserTime(event)">' + 'Del' + '</div>' +
+  '</div>';
   $.ajax({
     url: '/server/get-alltime-of-user?userId=' + userId,
     type: 'GET',
     success: function (data) {
       var tableBody = $('#time-table-body');
-      var flexTotalH1 = $('#flexTotal');
-      var felxCount = $('#flexCounters');
-      //var menuUserIndikater = $('#menu');
       //var userName = '<a class="menu-button userName">' + data.username + '</a>'
       tableBody.empty(); // Rensa befintligt innehåll
-      var flexTotal = 0;
+
 
       for (var i = 0; i < data.times.length; i++) {
-        flexTotal += data.times[i];
-        var row = '<tr>' +
+        var row = '<tr data-id="' + i +'">' +
           '<td>' + data.times[i] + '</td>' +
           '<td>' + data.dates[i] + '</td>' +
+          '<td>' + itemMenu + '</td>' +
           '</tr>';
 
         tableBody.append(row);
       }
-      if (flexTotal > 0) {
-        flexTotalH1.text("+" + flexTotal + "H");
-        felxCount.addClass("back-green");
-      } else {
-        flexTotalH1.text(flexTotal + "H");
-        felxCount.addClass("back-read");
-      }
-      //menuUserIndikater.append(userName);
     },
     error: function (xhr, status, error) {
       console.error('Ett fel uppstod:', error);
@@ -61,7 +58,7 @@ function getUserTime() {
 };
 
 function addUserTime(time, date) {
-  console.log(time + " : " + date);
+  //console.log(time + " : " + date);
   $.ajax({
     url: '/server/add-time-to-user?userId=' + userId  + 
     '&time=' + time,
@@ -75,19 +72,36 @@ function addUserTime(time, date) {
       console.error('Ett fel uppstod:', error);
     }
   });
+  UppdateraTabel();
+};
+
+function delUserTime(event) {
+  //console.log(time + " : " + date);
+  var rowId = event.target.parentNode.parentNode.parentNode.dataset.id;
+  //console.log(event.target.parentNode.parentNode.parentNode.dataset.id);
+  $.ajax({
+    url: '/server/del-item-with-id-from-user?userId=' + userId  + 
+    '&itemId=' + rowId,
+    type: 'GET',
+    success: function (data) {
+      if (data == 1) {
+        console.log('user not found');
+      } else if (data == 2) {
+        console.log('item not found');
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error('Ett fel uppstod:', error);
+    }
+  });
+  UppdateraTabel();
 };
 
 function buttonAddUserTime() {
   var input = document.getElementById("timeInput");
-  var today = new Date();
-  var year = today.getFullYear();
-  var month = ('0' + (today.getMonth() + 1)).slice(-2);
-  var day = ('0' + today.getDate()).slice(-2);
-  var dateString = year + '-' + month + '-' + day;
-  
-  addUserTime(input.value, dateString);
+
+  addUserTime(input.value);
   togglePopup(false);
-  getUserTime();
 }
 
 function togglePopup(negative) {
@@ -104,3 +118,26 @@ function togglePopup(negative) {
   }
 }
 
+function getTotalFlexTimeOfUser() {
+  $.ajax({
+    url: '/server/get-total-flex-time-of-user?userId=' + userId,
+    type: 'GET',
+    success: function (data) {
+      //console.log(data);
+      var flexTotalLabel = $('#flexTotal');
+      var felxCount = $('#flexCounters');
+      if (data > 0) {
+        flexTotalLabel.text("+" + data + "H");
+        felxCount.addClass("back-green");
+        felxCount.removeClass("back-red");
+      } else {
+        flexTotalLabel.text(data + "H");
+        felxCount.addClass("back-red");
+        felxCount.removeClass("back-green");
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error('Ett fel uppstod:', error);
+    }
+  });
+}
