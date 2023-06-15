@@ -52,7 +52,6 @@ app.get('/server/alive', (req, res) => {
   
       const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/alive');
       const json = await response.json()
-
       // console.log(json);
       return res.json(json);
     } catch (error) {
@@ -82,7 +81,6 @@ app.get('/server/get-total-flex-time-of-user', (req, res) => {
       const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/get-total-flex-time-of-user?userId=' + req.query.userId);
       const json = await response.json()
       //console.log("from server: " + json);
-
       return res.json(json);
     } catch (error) {
       console.log(error);
@@ -98,6 +96,22 @@ app.get('/server/add-time-to-user', (req, res) => {
       '&time=' + req.query.time);
       const json = await response.json()
       //console.log(json);
+      return res.json(json);
+    } catch (error) {
+      console.log(error);
+    }
+  })();
+});
+
+app.get('/server/del-item-with-id-from-user', (req, res) => {
+  (async () => {
+    try {
+      const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/del-item-with-id-from-user' + 
+      '?userId=' + req.query.userId +
+      '&itemId=' + req.query.itemId);
+      const json = await response.json()
+      //console.log(json);
+      //console.log("From web: " + req.query.itemId);
       return res.json(json);
     } catch (error) {
       console.log(error);
