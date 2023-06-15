@@ -12,12 +12,12 @@ public class Sql {
 
         userTimeDataArr[0].setUsername("Gustav");
         userTimeDataArr[0].setUserId(100);
-        userTimeDataArr[0].setTimes(new int[]{1, -2, 3, 4, -2});
+        userTimeDataArr[0].setTimes(new Integer[]{1, -2, 3, 4, -2});
         userTimeDataArr[0].setDates(new LocalDate[]{LocalDate.of(2023, 6, 1), LocalDate.of(2023, 6, 2), LocalDate.of(2023, 6, 3), LocalDate.of(2023, 6, 4), LocalDate.of(2023, 6, 5)});
 
         userTimeDataArr[1].setUsername("Bjorn");
         userTimeDataArr[1].setUserId(200);
-        userTimeDataArr[1].setTimes(new int[]{1, 2, -2, -1, -2});
+        userTimeDataArr[1].setTimes(new Integer[]{1, 2, -2, -1, -2});
         userTimeDataArr[1].setDates(new LocalDate[]{LocalDate.of(2023, 6, 1), LocalDate.of(2023, 6, 2), LocalDate.of(2023, 6, 3), LocalDate.of(2023, 6, 4), LocalDate.of(2023, 6, 5)});
     }
 
@@ -45,6 +45,16 @@ public class Sql {
         UserTimeData user = getUserTimeDataByUserId(userId);
         if (user != null) {
             user.add(time, date);
+        } else {
+            returnValue = 1;
+        }
+        return returnValue;
+    }
+    public int delItemFromUser(int userId, int itemId) {
+        int returnValue = 0;
+        UserTimeData user = getUserTimeDataByUserId(userId);
+        if (user != null) {
+            returnValue = user.del(itemId);
         } else {
             returnValue = 1;
         }

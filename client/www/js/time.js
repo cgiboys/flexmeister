@@ -3,12 +3,16 @@ var userId = 0;
 $(document).ready(function () {
   userId = getUserIdFromCookie();
   if (userId != null) {
-    getUserTime();
-    getTotalFlexTimeOfUser();
+    UppdateraTabel();
   } else {
     window.location = '/login.html';
   }
 });
+
+function UppdateraTabel() {
+  getUserTime();
+  getTotalFlexTimeOfUser();
+}
 
 function getUserIdFromCookie() {
   var cookies = document.cookie.split("; ");
@@ -25,6 +29,9 @@ function getUserIdFromCookie() {
 }
 
 function getUserTime() {
+  var itemMenu = '<div class="itemMenuButton">' +
+  '<div class="button-del-time" onclick="delUserTime(event)">' + 'Del' + '</div>' +
+  '</div>';
   $.ajax({
     url: '/server/get-alltime-of-user?userId=' + userId,
     type: 'GET',
@@ -35,9 +42,10 @@ function getUserTime() {
 
 
       for (var i = 0; i < data.times.length; i++) {
-        var row = '<tr>' +
+        var row = '<tr data-id="' + i +'">' +
           '<td>' + data.times[i] + '</td>' +
           '<td>' + data.dates[i] + '</td>' +
+          '<td>' + itemMenu + '</td>' +
           '</tr>';
 
         tableBody.append(row);
@@ -64,19 +72,36 @@ function addUserTime(time, date) {
       console.error('Ett fel uppstod:', error);
     }
   });
+  UppdateraTabel();
+};
+
+function delUserTime(event) {
+  //console.log(time + " : " + date);
+  var rowId = event.target.parentNode.parentNode.parentNode.dataset.id;
+  //console.log(event.target.parentNode.parentNode.parentNode.dataset.id);
+  $.ajax({
+    url: '/server/del-item-with-id-from-user?userId=' + userId  + 
+    '&itemId=' + rowId,
+    type: 'GET',
+    success: function (data) {
+      if (data == 1) {
+        console.log('user not found');
+      } else if (data == 2) {
+        console.log('item not found');
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error('Ett fel uppstod:', error);
+    }
+  });
+  UppdateraTabel();
 };
 
 function buttonAddUserTime() {
   var input = document.getElementById("timeInput");
-  var today = new Date();
-  var year = today.getFullYear();
-  var month = ('0' + (today.getMonth() + 1)).slice(-2);
-  var day = ('0' + today.getDate()).slice(-2);
-  var dateString = year + '-' + month + '-' + day;
-  
-  addUserTime(input.value, dateString);
+
+  addUserTime(input.value);
   togglePopup(false);
-  getUserTime();
 }
 
 function togglePopup(negative) {

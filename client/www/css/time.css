@@ -5,12 +5,14 @@ body {
 .table {
     width: 100%;
     border-collapse: collapse;
+    z-index: 999;
 }
 
 .table th,
 .table td {
     padding: 10px;
     text-align: center;
+    z-index: 10;
 }
 
 .table thead {
@@ -28,6 +30,8 @@ body {
 .table-responsive {
     margin-top: 20px;
     overflow-x: auto;
+    z-index: 5;
+    position: relative;
 }
 
 
@@ -68,7 +72,7 @@ body {
 }
 
 .back-read {
-    background-color: var(--read1-color);
+    background-color: var(--red1-color);
 }
 
 .hidden {
@@ -85,7 +89,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 90;
   }
   
   .popup-content {
@@ -119,6 +123,23 @@ body {
     margin: 0 auto;
   }
 
+  .button-del-time {
+    border-radius: 10px;
+    background-color: var(--red2-color);
+    width: 40px;
+    height: 40px;
+    margin: -8px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    z-index: 20;
+  }
+
+  .button-del-time:hover{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.452);
+  }
+
+
   section{
     position: absolute;
     bottom: 0px;
@@ -139,28 +160,28 @@ body {
   }
   section .air.air1{
     animation: wave 30s linear infinite;
-    z-index: 1000;
+    z-index: 4;
     opacity: 1;
     animation-delay: 0s;
     bottom: 0;
   }
   section .air.air2{
     animation: wave2 15s linear infinite;
-    z-index: 999;
+    z-index: 3;
     opacity: 0.5;
     animation-delay: -5s;
     bottom: 10px;
   }
   section .air.air3{
     animation: wave 30s linear infinite;
-    z-index: 998;
+    z-index: 2;
     opacity: 0.2;
     animation-delay: -2s;
     bottom: 15px;
   }
   section .air.air4{
     animation: wave2 5s linear infinite;
-    z-index: 997;
+    z-index: 1;
     opacity: 0.7;
     animation-delay: -5s;
     bottom: 20px;
