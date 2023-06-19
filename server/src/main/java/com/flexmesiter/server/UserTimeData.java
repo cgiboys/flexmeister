@@ -36,6 +36,18 @@ class UserTimeData {
         return Dates.toArray(new LocalDate[0]);
     }
 
+    public LocalDate[] getNumberOfDates(int nr) {
+        LocalDate[] newArray = new LocalDate[nr];
+        int startIndex = this.Dates.size() - nr;
+        int newArrayIndex = 0;
+
+        for (int i = startIndex; i < this.Dates.size(); i++) {
+            newArray[newArrayIndex] = this.Dates.get(i);
+            newArrayIndex++;
+        }
+        return newArray;
+    }
+
     // Sätter en lista med datum för användaren baserat på en inmatning av en array med datum
     public void setDates(LocalDate[] dates) {
         this.Dates = new ArrayList<LocalDate>(Arrays.asList(Arrays.copyOf(dates, dates.length)));
@@ -44,6 +56,18 @@ class UserTimeData {
     // Returnerar en array med flextider för användaren
     public Integer[] getTimes() {
         return Times.toArray(new Integer[0]);
+    }
+
+    public Integer[] getNumberOfTimes(int nr) {
+        Integer[] newArray = new Integer[nr];
+        int startIndex = this.Times.size() - nr;
+        int newArrayIndex = 0;
+
+        for (int i = startIndex; i < this.Times.size(); i++) {
+            newArray[newArrayIndex] = this.Times.get(i);
+            newArrayIndex++;
+        }
+        return newArray;
     }
 
     // Sätter en lista med flextider för användaren baserat på en inmatning av en array med flextider
@@ -89,5 +113,8 @@ class UserTimeData {
         } else {
             return 2; // Returnerar 2 om itemId är ogiltigt (utanför gränserna).
         }
+    }
+    public int getSize() {
+        return this.Times.size();
     }
 }

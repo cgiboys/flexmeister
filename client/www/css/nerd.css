@@ -1,0 +1,99 @@
+/* Allmän styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  /* Vecka vyn */
+  .week-view {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .week-view h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .week-view .list-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .week-view .time {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .week-view .date {
+    color: #888;
+  }
+  
+  /* Månad vyn */
+  .month-view {
+    flex: 1;
+  }
+  
+  .month-view h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .month-view .list-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .month-view .time {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .month-view .date {
+    color: #888;
+  }
+  
+  body {
+    background: #3586ff;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    z-index: 999;
+}
+
+.data-table th,
+.data-table td {
+    padding: 10px;
+    text-align: center;
+    z-index: 10;
+}
+
+.data-table thead {
+    background-color: #f1f1f160;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: #f9f9f960;
+}
+
+.data-table tbody tr:hover {
+    background-color: #e8e8e840;
+}
+
+.table-responsive {
+    margin-top: 20px;
+    overflow-x: auto;
+    z-index: 5;
+    position: relative;
+}

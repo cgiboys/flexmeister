@@ -75,6 +75,42 @@ app.get('/server/get-alltime-of-user', (req, res) => {
   })();
 });
 
+app.get('/server/get-v-time-of-user', (req, res) => {
+  (async () => {
+    try {
+      const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/get-v-time-of-user?userId=' + req.query.userId);
+      const json = await response.json()
+      return res.json(json);
+    } catch (error) {
+      console.log(error);
+    }
+  })();
+});
+
+app.get('/server/get-m-time-of-user', (req, res) => {
+  (async () => {
+    try {
+      const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/get-m-time-of-user?userId=' + req.query.userId);
+      const json = await response.json()
+      return res.json(json);
+    } catch (error) {
+      console.log(error);
+    }
+  })();
+});
+
+app.get('/server/get-y-time-of-user', (req, res) => {
+  (async () => {
+    try {
+      const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/get-y-time-of-user?userId=' + req.query.userId);
+      const json = await response.json()
+      return res.json(json);
+    } catch (error) {
+      console.log(error);
+    }
+  })();
+});
+
 app.get('/server/get-total-flex-time-of-user', (req, res) => {
   (async () => {
     try {
