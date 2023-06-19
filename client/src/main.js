@@ -119,6 +119,23 @@ app.get('/server/del-item-with-id-from-user', (req, res) => {
   })();
 });
 
+app.get('/server/edit-item-with-id-from-user', (req, res) => {
+  (async () => {
+    try {
+      const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/edit-item-with-id-from-user' + 
+      '?userId=' + req.query.userId +
+      '&itemId=' + req.query.itemId +
+      '&newTime=' + req.query.newTime);
+      const json = await response.json()
+      //console.log(json);
+      //console.log("From web: userId: " + req.query.userId + " itemId: " + req.query.itemId + " newTime: " + req.query.newTime);
+      return res.json(json);
+    } catch (error) {
+      console.log(error);
+    }
+  })();
+});
+
 app.get('/api/menu', (req, res) => {
   res.json(generateMenu());
 });

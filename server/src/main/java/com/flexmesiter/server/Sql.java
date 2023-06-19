@@ -60,4 +60,14 @@ public class Sql {
         }
         return returnValue;
     }
+    public int editItemFromUser(int userId, int itemId, int newTime) {
+        int returnValue = 0;
+        UserTimeData user = getUserTimeDataByUserId(userId);
+        if (user != null) {
+            returnValue = user.editItemOfUser(itemId, newTime);
+        } else {
+            returnValue = 1;
+        }
+        return returnValue;
+    }
 }

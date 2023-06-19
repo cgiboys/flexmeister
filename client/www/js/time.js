@@ -29,8 +29,9 @@ function getUserIdFromCookie() {
 }
 
 function getUserTime() {
-  var itemMenu = '<div class="itemMenuButton">' +
-  '<div class="button-del-time" onclick="delUserTime(event)">' + 'Del' + '</div>' +
+  var itemMenu = '<div class="tabel-item-buttons">' +
+  '<div class="button-tabel-item back-red" onclick="buttonEditUserTime(event)">' + 'Edit' + '</div>' +
+  '<div class="button-tabel-item back-red" onclick="delUserTime(event)">' + 'Del' + '</div>' +
   '</div>';
   $.ajax({
     url: '/server/get-alltime-of-user?userId=' + userId,
@@ -43,9 +44,9 @@ function getUserTime() {
 
       for (var i = 0; i < data.times.length; i++) {
         var row = '<tr data-id="' + i +'">' +
-          '<td>' + data.times[i] + '</td>' +
-          '<td>' + data.dates[i] + '</td>' +
-          '<td>' + itemMenu + '</td>' +
+          '<td data-id="0">' + data.times[i] + '</td>' +
+          '<td data-id="1">' + data.dates[i] + '</td>' +
+          '<td data-id="2">' + itemMenu + '</td>' +
           '</tr>';
 
         tableBody.append(row);
@@ -96,6 +97,57 @@ function delUserTime(event) {
   });
   UppdateraTabel();
 };
+
+function saveEditUserTime(event) {
+  var row = event.target.parentNode.parentNode.parentNode;
+  var buttonContainer = event.target.parentNode;
+  var rowId = row.dataset.id;
+  var rowTime = row.children[0];
+  var rowInput = rowTime.children[0];
+
+  //console.log(rowId);
+  //console.log(rowInput);
+  //console.log(row);
+  $.ajax({
+    url: '/server/edit-item-with-id-from-user?userId=' + userId  + 
+    '&itemId=' + rowId +
+    '&newTime=' + rowInput.value,
+    type: 'GET',
+    success: function (data) {
+      if (data == 1) {
+        console.log('user not found');
+      } else if (data == 2) {
+        console.log('item not found');
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error('Ett fel uppstod:', error);
+    }
+  });
+  UppdateraTabel();
+};
+
+function buttonEditUserTime(event) {
+  
+  var row = event.target.parentNode.parentNode.parentNode;
+  var buttonContainer = event.target.parentNode;
+  var rowId = row.dataset.id;
+  var rowTime = row.children[0];
+
+  //console.log(FlexEditItim);
+  var inputElement = document.createElement("input");
+  var saveButton = document.createElement("div");
+
+  // Sätta attribut för input-noden
+  inputElement.setAttribute("type", "number");
+  inputElement.setAttribute("name", "myInput");
+  // sätt attribut för div
+  saveButton.setAttribute("class", "back-green button-tabel-item");
+  saveButton.setAttribute("onclick", "saveEditUserTime(event)"); 
+  saveButton.textContent  = "Save";
+  buttonContainer.appendChild(saveButton);
+  rowTime.appendChild(inputElement);
+}
 
 function buttonAddUserTime() {
   var input = document.getElementById("timeInput");
