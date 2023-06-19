@@ -2,7 +2,7 @@
 
 echo "Client"
 echo "================================"
-cd ../client
+cd client
 echo "runing Client"
 npm install
 node src/main.js

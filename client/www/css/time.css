@@ -123,19 +123,27 @@ body {
     margin: 0 auto;
   }
 
-  .button-del-time {
+  .button-tabel-item {
     border-radius: 10px;
-    background-color: var(--red2-color);
     width: 40px;
     height: 40px;
     margin: -8px;
+    margin-left: 10px;
     justify-content: center;
     align-items: center;
     display: flex;
+    position: relative;
     z-index: 20;
   }
 
-  .button-del-time:hover{
+  .tabel-item-buttons {
+    display: flex;
+    right: 0px;
+    position:relative;
+    float: right;
+  }
+
+  .button-tabel-item:hover{
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.452);
   }
 

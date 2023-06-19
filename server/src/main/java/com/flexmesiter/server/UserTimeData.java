@@ -85,4 +85,17 @@ class UserTimeData {
         }
         return returnValue;
     }
+
+    public Integer editItemOfUser(int itemId, int newTime) {
+        //System.out.println(this.Times);
+        //System.out.println("itemId: " + itemId + " newTime: " + newTime);
+        if (itemId >= 0 || itemId < this.Times.size()) {
+            this.Times.set(itemId, newTime);
+            //System.out.println(this.Times);
+            return 0;
+        } else {
+            //System.out.println(this.Times);
+            return 2;
+        }
+    }
 }
