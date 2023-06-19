@@ -25,6 +25,24 @@ public class Api {
         return mocks.getUserTimeDataByUserId(Integer.parseInt(userId));
     }
 
+    @GetMapping("/get-v-time-of-user")
+    // set usernam för att sedan sicka in data till en funktion för att fylla data.times[] och data.date[] med information 
+    public UserTimeData getVuserTimeData(@RequestParam String userId) {
+        return mocks.getVUserTimeDataByUserId(Integer.parseInt(userId));
+    }
+
+    @GetMapping("/get-m-time-of-user")
+    // set usernam för att sedan sicka in data till en funktion för att fylla data.times[] och data.date[] med information 
+    public UserTimeData getMuserTimeData(@RequestParam String userId) {
+        return mocks.getMUserTimeDataByUserId(Integer.parseInt(userId));
+    }
+
+    @GetMapping("/get-y-time-of-user")
+    // set usernam för att sedan sicka in data till en funktion för att fylla data.times[] och data.date[] med information 
+    public UserTimeData getYuserTimeData(@RequestParam String userId) {
+        return mocks.getYUserTimeDataByUserId(Integer.parseInt(userId));
+    }
+
     @GetMapping("/add-time-to-user")
     // set usernam för att sedan sicka in data till en funktion för att fylla data.times[] och data.date[] med information 
     public Integer addTimeToUser(@RequestParam String userId,@RequestParam String time) {
