@@ -46,4 +46,10 @@ public class Api {
     public Integer delItemFromUser(@RequestParam String userId,@RequestParam String itemId) {
         return mocks.delItemFromUser(Integer.parseInt(userId), Integer.parseInt(itemId));
     }
+
+    @GetMapping("/edit-item-with-id-from-user")
+    // set usernam för att sedan sicka in data till en funktion för att fylla data.times[] och data.date[] med information 
+    public Integer editItemFromUser(@RequestParam String userId,@RequestParam String itemId, @RequestParam String newTime) {
+        return mocks.editItemFromUser(Integer.parseInt(userId), Integer.parseInt(itemId), Integer.parseInt(newTime));
+    }
 }
