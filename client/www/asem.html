@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Assembly till HTML</title>
+</head>
+<body>
+  <pre>
+    <code>
+      ; Program för att skriva ut "Hello, världen!" i assembly
+
+      section .data
+        hello db 'Hello, världen!', 0Ah ; Meddelande att skriva ut
+
+      section .text
+        global _start
+
+      _start:
+        ; Skriv ut meddelandet
+        mov eax, 4
+        mov ebx, 1
+        mov ecx, hello
+        mov edx, 15
+        int 0x80
+
+        ; Avsluta programmet
+        mov eax, 1
+        xor ebx, ebx
+        int 0x80
+    </code>
+  </pre>
+</body>
+</html>

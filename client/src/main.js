@@ -90,8 +90,10 @@ app.get('/server/get-v-time-of-user', (req, res) => {
 app.get('/server/get-m-time-of-user', (req, res) => {
   (async () => {
     try {
-      const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/get-m-time-of-user?userId=' + req.query.userId);
+      const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/get-m-time-of-user?userId=' + req.query.userId + 
+      '&month=' + req.query.month);
       const json = await response.json()
+      console.log(json);
       return res.json(json);
     } catch (error) {
       console.log(error);

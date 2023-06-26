@@ -48,26 +48,24 @@ public class Sql {
         return returnValue;
     }
 
-    public UserTimeData getVUserTimeDataByUserId(int userId) {
-        UserTimeData returnValue = new UserTimeData();
+    public FlexWeek getVUserTimeDataByUserId(int userId, int week, int year) {
+        UserTimeData user = new UserTimeData();
         for (int i = 0; i < this.userTimeDataArr.length; i++) {
             if (userTimeDataArr[i].getUserId() == userId) {
-                returnValue.setDates(userTimeDataArr[i].getNumberOfDates(7));
-                returnValue.setTimes(userTimeDataArr[i].getNumberOfTimes(7));
+                user = userTimeDataArr[i];
             }
         }
-        return returnValue;
+        return user.getFlexWeek(week, year);
     }
 
-    public UserTimeData getMUserTimeDataByUserId(int userId) {
-        UserTimeData returnValue = new UserTimeData();
+    public FlexMonth getMUserTimeDataByUserId(int userId, int inMonth, int inYear){
+        UserTimeData user = new UserTimeData();
         for (int i = 0; i < this.userTimeDataArr.length; i++) {
             if (userTimeDataArr[i].getUserId() == userId) {
-                returnValue.setDates(userTimeDataArr[i].getNumberOfDates(30));
-                returnValue.setTimes(userTimeDataArr[i].getNumberOfTimes(30));
+                user = userTimeDataArr[i];
             }
         }
-        return returnValue;
+        return user.getFlexMonth(inMonth, inYear);
     }
 
     public UserTimeData getYUserTimeDataByUserId(int userId) {

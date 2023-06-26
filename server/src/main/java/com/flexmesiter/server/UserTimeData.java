@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.time.YearMonth;
+import java.time.temporal.WeekFields;
 
 class UserTimeData {
     private String username; // Användarens namn
@@ -116,5 +118,42 @@ class UserTimeData {
     }
     public int getSize() {
         return this.Times.size();
+    }
+
+    public FlexMonth getFlexMonth(int inMonth, int inYear) {
+        YearMonth today = YearMonth.of(inYear, inMonth);
+        int currentMonth = inMonth;
+        int currentYear = inYear;
+        int nrOfDays = today.lengthOfMonth();
+        int[] flexOfDays = new int[nrOfDays];
+        int dataIndex = this.Dates.indexOf(LocalDate.of(inYear, inMonth, 1));
+
+        
+        for (int i = 0; i < nrOfDays; i++) {
+            if (this.Dates.contains(LocalDate.of(inYear, inMonth, i +1))) {
+                flexOfDays[i] = this.Times.get(dataIndex + i);
+            } else {
+                flexOfDays[i] = 0;
+            }
+        }
+        return new FlexMonth(currentMonth, currentYear, flexOfDays);
+    }
+
+public FlexWeek getFlexWeek(int inWeek, int inYear) {
+        LocalDate today = LocalDate.of(inYear, 1, 1).with(WeekFields.ISO.weekOfYear(), inWeek).minusDays(6);
+        System.out.println(today.toString());
+        int currentWeek = inWeek;
+        int currentYear = inYear;
+        FlexDay[] flexOfDays = new FlexDay[7];
+        int dataIndex = this.Dates.indexOf(today);
+
+        for (int i = 0; i < 7; i++) {
+            if (this.Dates.contains(today.plusDays(i))) {
+                flexOfDays[i] = new FlexDay(this.Times.get(dataIndex + i), today.plusDays(i), today.plusDays(i).getDayOfWeek().getValue());
+            } else {
+                flexOfDays[i] = new FlexDay(0, today.plusDays(i), today.plusDays(i).getDayOfWeek().getValue());
+            }
+        }
+        return new FlexWeek(flexOfDays, currentWeek);
     }
 }

@@ -38,7 +38,7 @@ body {
   }
   
   /* Månad vyn */
-  .month-view {
+ /*  .month-view {
     flex: 1;
   }
   
@@ -60,6 +60,25 @@ body {
   
   .month-view .date {
     color: #888;
+  } */
+
+  .empty-cell {
+    background-color: #eee;
+  }
+  
+  .month-view .calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .month-view .calendar-table th,
+  .month-view .calendar-table td {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .month-view .calendar-table .empty-cell {
+    background-color: #eee;
   }
   
   body {
@@ -96,4 +115,29 @@ body {
     overflow-x: auto;
     z-index: 5;
     position: relative;
+}
+
+.flex-time {
+    background-color: var(--red1-color);
+    font-size: x-large;
+}
+
+.dayCell {
+    font-size: small;
+    border-width: 1px;
+}
+
+.controls-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    column-gap: 10px;
+  }
+
+.button {
+    border: 1px solid var(--red1-color);
+}
+
+.current-day {
+  background-color: aquamarine;
 }
