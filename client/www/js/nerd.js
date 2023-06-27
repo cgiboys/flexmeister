@@ -178,6 +178,11 @@ function populateMonthView(month) {
                 dayCell.addClass('dayCell');
                 var flexTime = flexTimes[i - 1]; // Hämta flexTime-värdet för aktuell dag
                 var flexTimeCell = $('<span>').text(flexTime).addClass('flex-time');
+                if (flexTime < 0) {
+                    flexTimeCell.addClass('back-red');
+                } else {
+                    flexTimeCell.addClass('back-green');
+                }
                 dayCell.append(flexTimeCell);
 
 

@@ -36,31 +36,6 @@ body {
   .week-view .date {
     color: #888;
   }
-  
-  /* Månad vyn */
- /*  .month-view {
-    flex: 1;
-  }
-  
-  .month-view h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .month-view .list-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .month-view .time {
-    font-weight: bold;
-    margin-right: 10px;
-  }
-  
-  .month-view .date {
-    color: #888;
-  } */
 
   .empty-cell {
     background-color: #eeeeee50;
@@ -127,6 +102,7 @@ body {
 .flex-time {
     background-color: var(--red1-color);
     font-size: x-large;
+    border-radius: 4px;
 }
 
 .dayCell {

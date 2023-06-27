@@ -67,14 +67,6 @@ body {
     justify-content: center;
 }
 
-.back-green {
-    background-color: var(--green1-color);
-}
-
-.back-red {
-    background-color: var(--red1-color);
-}
-
 .hidden {
     visibility: hidden;
 }

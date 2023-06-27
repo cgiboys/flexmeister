@@ -9,6 +9,12 @@
     --greey1-color: #222222;
     --greey2-color: #666666;
     --greey3-color: #aaaaaa;
-    
+}
 
+.back-green {
+    background-color: var(--green1-color);
+}
+
+.back-red {
+    background-color: var(--red1-color);
 }
