@@ -27,14 +27,14 @@ public class Api {
 
     @GetMapping("/get-v-time-of-user")
     // set usernam för att sedan sicka in data till en funktion för att fylla data.times[] och data.date[] med information 
-    public FlexWeek getVuserTimeData(@RequestParam String userId) {
-        return mocks.getVUserTimeDataByUserId(Integer.parseInt(userId), 26, 2023);
+    public FlexWeek getVuserTimeData(@RequestParam String userId, @RequestParam String week, @RequestParam String year) {
+        return mocks.getVUserTimeDataByUserId(Integer.parseInt(userId), Integer.parseInt(week), Integer.parseInt(year));
     }
 
     @GetMapping("/get-m-time-of-user")
     // set usernam för att sedan sicka in data till en funktion för att fylla data.times[] och data.date[] med information 
-    public FlexMonth getMuserTimeData(@RequestParam String userId, @RequestParam String month) {
-        return mocks.getMUserTimeDataByUserId(Integer.parseInt(userId), Integer.parseInt(month), 2023);
+    public FlexMonth getMuserTimeData(@RequestParam String userId, @RequestParam String month, @RequestParam String year) {
+        return mocks.getMUserTimeDataByUserId(Integer.parseInt(userId), Integer.parseInt(month), Integer.parseInt(year));
     }
 
     @GetMapping("/get-y-time-of-user")

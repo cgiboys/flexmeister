@@ -78,7 +78,10 @@ app.get('/server/get-alltime-of-user', (req, res) => {
 app.get('/server/get-v-time-of-user', (req, res) => {
   (async () => {
     try {
-      const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/get-v-time-of-user?userId=' + req.query.userId);
+      const response = await fetch('http://' + serverIp + ':' + serverPort + 
+      '/api/get-v-time-of-user?userId=' + req.query.userId +
+      '&week=' + req.query.week +
+      '&year=' + req.query.year);
       const json = await response.json()
       return res.json(json);
     } catch (error) {
@@ -91,7 +94,8 @@ app.get('/server/get-m-time-of-user', (req, res) => {
   (async () => {
     try {
       const response = await fetch('http://' + serverIp + ':' + serverPort + '/api/get-m-time-of-user?userId=' + req.query.userId + 
-      '&month=' + req.query.month);
+      '&month=' + req.query.month +
+      '&year=' + req.query.year);
       const json = await response.json()
       console.log(json);
       return res.json(json);

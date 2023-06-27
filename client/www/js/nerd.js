@@ -11,7 +11,7 @@ $(document).ready(function () {
         weekLabel.setAttribute("data-week", getWeek(currentDate));
         populateWeekView();
         //WeekDebugg();
-        gpopulateMonthView(currentMonth);
+        populateMonthView(currentMonth);
     } else {
         window.location = '/login.html';
     }
@@ -20,20 +20,24 @@ $(document).ready(function () {
 function populateWeekView() {
     var weekViewList = $('.week-view tbody');
     weekViewList.empty(); // Rensa befintligt innehåll
+    var weekLabel = document.getElementById('label-week');
+    var currentWeek = weekLabel.getAttribute('data-week');
+    var currentDate = new Date();
 
     $.ajax({
-        url: '/server/get-v-time-of-user?userId=' + userId,
+        url: '/server/get-v-time-of-user?userId=' + userId +
+        '&week=' + currentWeek +
+        '&year=' + currentDate.getFullYear(),
         type: 'GET',
         success: function (data) {
             var weekdayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-            var weekLabel = document.getElementById('label-week');
-            console.log(weekLabel.innerText);
+            //console.log(weekLabel.innerText);
             weekLabel.innerText = "Vecka: " + weekLabel.getAttribute('data-week');
             //weekLabel.setAttribute("data-week", data.weekNumber);
-            console.log(weekLabel.innerText + ': ' + weekLabel.getAttribute('data-week'));
+            //console.log(weekLabel.innerText + ': ' + weekLabel.getAttribute('data-week'));
             for (var i = 0; i < data.days.length; i++) {
                 // Markera aktuell dag
-                var currentDate = new Date();
+                
                 var todayclass = "";
                 //console.log(data.days[i].date + " värdet i slistan");
                 //console.log(currentDate);
@@ -93,7 +97,7 @@ function getNextMonth() {
     if (nextMonth === 12) {
         nextMonth = 1;
     }
-    getMonthData(nextMonth);
+    populateMonthView(nextMonth);
 }
 
 function getPreviousMonth() {
@@ -105,16 +109,20 @@ function getPreviousMonth() {
     if (previousMouth === 0) {
         previousMouth = 12;
     }
-    getMonthData(previousMouth);
+    populateMonthView(previousMouth);
 }
 
-function gpopulateMonthView(month) {
+function populateMonthView(month) {
+    var calendarMonthLabel = document.getElementById('label-monad');
+    var currentDate = new Date();
+
     $.ajax({
-        url: '/server/get-m-time-of-user?userId=' + userId + '&month=' + month,
+        url: '/server/get-m-time-of-user?userId=' + userId + 
+        '&month=' + month +
+        '&year=' + currentDate.getFullYear(),
         type: 'GET',
         success: function (data) {
             var calendarView = $('.month-view');
-
             var element = $('#tabel-month');
             element.remove();
             // Generera kalenderstrukturen
@@ -122,7 +130,7 @@ function gpopulateMonthView(month) {
             calendarTable.attr("id", "tabel-month");
             var calendarHeader = $('<thead>');
             var calendarBody = $('<tbody>');
-            var calendarMonthLabel = document.getElementById('label-monad');
+            
 
             // skapa månads namn
             var monthNames = [
@@ -153,9 +161,10 @@ function gpopulateMonthView(month) {
             var firstDayInMonth = new Date(data.dates[i]);
             //var firstDayIndex = currentDate.getDay(); // Index för första dagen i månaden (0-6)
             var startOnMonday = -1;
+            var startOnSunday = 0;
             var firstDayIndex = firstDayInMonth.getDay() + startOnMonday;
             var lastDayIndex = ((firstDayIndex + totalDays) % 7) + startOnMonday; // Index för sista dagen i månaden (0-6)
-            console.log(lastDayIndex);
+            //console.log(lastDayIndex);
             var weekRow = $('<tr>');
 
             // Lägg till tomma celler för dagar före första dagen i månaden

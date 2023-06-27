@@ -63,7 +63,10 @@ body {
   } */
 
   .empty-cell {
-    background-color: #eee;
+    background-color: #eeeeee50;
+    border: 1px solid black;
+    height: 30px;
+    width: 40px;
   }
   
   .month-view .calendar-table {
@@ -98,6 +101,10 @@ body {
     z-index: 10;
 }
 
+.current-day {
+  background-color: aquamarine !important;
+}
+
 .data-table thead {
     background-color: #f1f1f160;
 }
@@ -124,7 +131,9 @@ body {
 
 .dayCell {
     font-size: small;
-    border-width: 1px;
+    border: 1px solid black;
+    height: 30px;
+    width: 40px;
 }
 
 .controls-container {
@@ -136,8 +145,4 @@ body {
 
 .button {
     border: 1px solid var(--red1-color);
-}
-
-.current-day {
-  background-color: aquamarine;
 }
