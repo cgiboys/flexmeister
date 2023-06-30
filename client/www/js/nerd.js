@@ -10,12 +10,13 @@ $(document).ready(function () {
     if (userId != null) {
         weekLabel.setAttribute("data-week", getWeek(currentDate));
         populateWeekView();
-        //WeekDebugg();
+        YearDebugg();
         populateMonthView(currentMonth);
     } else {
         window.location = '/login.html';
     }
 });
+
 
 function populateWeekView() {
     var weekViewList = $('.week-view tbody');
@@ -64,9 +65,10 @@ function populateWeekView() {
     });
 }
 
-function WeekDebugg() {
+function YearDebugg() {
     $.ajax({
-        url: '/server/get-v-time-of-user?userId=' + userId,
+        url: '/server/get-y-time-of-user?userId=' + userId +
+        '&year=' + 2023,
         type: 'GET',
         success: function (data) {
             console.log(data);

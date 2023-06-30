@@ -68,7 +68,7 @@ public class Sql {
         return user.getFlexMonth(inMonth, inYear);
     }
 
-    public UserTimeData getYUserTimeDataByUserId(int userId) {
+    public UserTimeData getYUserTimeDataByUserId(int userId, int year) {
         UserTimeData returnValue = new UserTimeData();
         for (int i = 0; i < this.userTimeDataArr.length; i++) {
             if (userTimeDataArr[i].getUserId() == userId) {

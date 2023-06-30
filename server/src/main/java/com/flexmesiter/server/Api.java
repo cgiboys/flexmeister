@@ -39,8 +39,9 @@ public class Api {
 
     @GetMapping("/get-y-time-of-user")
     // set usernam för att sedan sicka in data till en funktion för att fylla data.times[] och data.date[] med information 
-    public UserTimeData getYuserTimeData(@RequestParam String userId) {
-        return mocks.getYUserTimeDataByUserId(Integer.parseInt(userId));
+    public UserTimeData getYuserTimeData(@RequestParam String userId, @RequestParam String year) {
+        //System.out.println("get year " + userId + " " + year );
+        return mocks.getYUserTimeDataByUserId(Integer.parseInt(userId), Integer.parseInt(year));
     }
 
     @GetMapping("/add-time-to-user")

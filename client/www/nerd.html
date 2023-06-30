@@ -18,36 +18,60 @@
 <body>
     <div id="menu"> </div>
     <div class="spacer"></div>
-    <div class="container">
-        <div class="week-view">
-            <h2 id="label-week">Vecka</h2>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Date</th>
-                        <th>Name of day</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Tabellrader genereras dynamiskt via JavaScript -->
-                </tbody>
-            </table>
-        </div>
-        <div class="month-view">
-            <div class="controls-container">
-                <h2 id="label-monad">Månad</h2><div onclick="getPreviousMonth()" class="button">Föra</div><div onclick="getNextMonth()" class="button">Nästa</div>
-            </div>
-            <table id="tabel-month" class="calendar-table">
-                <thead id="thead-month">
-                    <tr>
+    <div>
+        <div class="container">
+            <div class="week-view">
+                <h2 id="label-week">Vecka</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Date</th>
+                            <th>Name of day</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <!-- Tabellrader genereras dynamiskt via JavaScript -->
-                    </tr>
-                </thead>
-                <tbody id="tbody-month">
-                    <!-- Tabellrader genereras dynamiskt via JavaScript -->
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+            <div class="month-view">
+                <div class="controls-container">
+                    <h2 id="label-monad">Månad</h2>
+                    <div onclick="getPreviousMonth()" class="button">Föra</div>
+                    <div onclick="getNextMonth()" class="button">Nästa</div>
+                </div>
+                <table id="tabel-month" class="calendar-table">
+                    <thead id="thead-month">
+                        <tr>
+                            <!-- Tabellrader genereras dynamiskt via JavaScript -->
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-month">
+                        <!-- Tabellrader genereras dynamiskt via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container">
+
+            <div class="Year-view">
+                <div class="controls-container">
+                    <h2 id="label-year">År</h2>
+                    <div onclick="YearDebugg()" class="button">Föra</div>
+                    <div onclick="YearDebugg()" class="button">Nästa</div>
+                </div>
+                <table id="tabel-year" class="">
+                    <thead id="thead-year">
+                        <tr>
+                            <!-- Tabellrader genereras dynamiskt via JavaScript -->
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-year">
+                        <!-- Tabellrader genereras dynamiskt via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>
