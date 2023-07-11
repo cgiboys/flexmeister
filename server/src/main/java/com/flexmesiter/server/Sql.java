@@ -68,7 +68,7 @@ public class Sql {
         return user.getFlexMonth(inMonth, inYear);
     }
 
-    public UserTimeData getYUserTimeDataByUserId(int userId, int year) {
+    public FlexYear getYUserTimeDataByUserId(int userId, int year) {
         UserTimeData returnValue = new UserTimeData();
         for (int i = 0; i < this.userTimeDataArr.length; i++) {
             if (userTimeDataArr[i].getUserId() == userId) {
@@ -76,7 +76,8 @@ public class Sql {
                 returnValue.setTimes(userTimeDataArr[i].getNumberOfTimes(365));
             }
         }
-        return returnValue;
+        //System.out.println(returnValue.getFlexYear(2023));
+        return returnValue.getFlexYear(year);
     }
 
     public int getTotalFlexOfUser(int userId) {

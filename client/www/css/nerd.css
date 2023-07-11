@@ -122,3 +122,8 @@ body {
 .button {
     border: 1px solid var(--red1-color);
 }
+
+.month-Sum {
+  height: 30px;
+  width: 40px;
+}

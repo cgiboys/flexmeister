@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.time.YearMonth;
+import java.time.Year;
 import java.time.temporal.WeekFields;
 
 class UserTimeData {
@@ -118,6 +119,19 @@ class UserTimeData {
     }
     public int getSize() {
         return this.Times.size();
+    }
+
+    public FlexYear getFlexYear(int inYear) {
+        int nrOfMonth = 12;
+        boolean isLeapYear = Year.isLeap(inYear);
+        int currentYear = inYear;
+        FlexMonth[] months = new FlexMonth[nrOfMonth];
+        for (int monthNr = 1; monthNr <= nrOfMonth; monthNr++) {
+            months[monthNr -1] = getFlexMonth(monthNr, inYear);
+            //System.out.println();
+            //System.out.println("månad " + monthNr + ": " + months[monthNr -1].toString());
+        }
+        return new FlexYear(currentYear, months);
     }
 
     public FlexMonth getFlexMonth(int inMonth, int inYear) {

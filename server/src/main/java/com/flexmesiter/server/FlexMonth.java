@@ -52,4 +52,11 @@ public class FlexMonth {
     public int[] getNameOfDays() {
         return nameOfDays;
     }
+    
+    @Override
+    public String toString() {
+        return "FlexMonth [currentMonth=" + currentMonth + ", currentYear=" + currentYear + ", totalDays=" + totalDays
+                + ", flexTimes=" + Arrays.toString(flexTimes) + ", dates=" + Arrays.toString(dates) + ", nameOfDays="
+                + Arrays.toString(nameOfDays) + "]";
+    }
 }

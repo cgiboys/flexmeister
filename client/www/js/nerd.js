@@ -12,6 +12,7 @@ $(document).ready(function () {
         populateWeekView();
         YearDebugg();
         populateMonthView(currentMonth);
+        populateYearView(2023);
     } else {
         window.location = '/login.html';
     }
@@ -27,8 +28,8 @@ function populateWeekView() {
 
     $.ajax({
         url: '/server/get-v-time-of-user?userId=' + userId +
-        '&week=' + currentWeek +
-        '&year=' + currentDate.getFullYear(),
+            '&week=' + currentWeek +
+            '&year=' + currentDate.getFullYear(),
         type: 'GET',
         success: function (data) {
             var weekdayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -38,7 +39,7 @@ function populateWeekView() {
             //console.log(weekLabel.innerText + ': ' + weekLabel.getAttribute('data-week'));
             for (var i = 0; i < data.days.length; i++) {
                 // Markera aktuell dag
-                
+
                 var todayclass = "";
                 //console.log(data.days[i].date + " värdet i slistan");
                 //console.log(currentDate);
@@ -68,7 +69,7 @@ function populateWeekView() {
 function YearDebugg() {
     $.ajax({
         url: '/server/get-y-time-of-user?userId=' + userId +
-        '&year=' + 2023,
+            '&year=' + 2023,
         type: 'GET',
         success: function (data) {
             console.log(data);
@@ -88,6 +89,126 @@ function getUserIdFromCookie() {
         }
     }
     return null; // Om cookien inte hittas
+}
+
+function getNextYear() {
+    var thisYear = document.getElementById('label-year').dataset.year;
+    if (thisYear === "undefined") {
+        thisYear = 2023;
+    }
+    var nextYear = thisYear + 1;
+    populateYearView(nextYear);
+}
+
+function getPreviousYear() {
+    var thisYear = document.getElementById('label-year').dataset.year;
+    if (thisYear === "undefined") {
+        thisYear = 2023;
+    }
+    var previousYear = thisYear - 1;
+    populateYearView(previousYear);
+}
+
+// genererar datta rad för rad som motsvarar en vecka i månaden
+function generatweekForMonthInYerWiew(data, weekNumber) {
+    monthRow = $('<tr>');
+    monthRow.append($('<td>').text("V." + weekNumber).addClass('empty-cell').addClass('month-Sum'));
+    endWeekNumbers = weekNumber;
+    for (var i = 0; i < 11; i++) {
+        var currentMonth = data.months[i];
+        var weekInMonthSumFlex = 0;
+        var currentWeekNumbers = 0;
+        for (let day = 0; day < currentMonth.totalDays; day++) {
+            if (currentWeekNumbers != endWeekNumbers) {
+                if (currentWeekNumbers === endWeekNumbers - 1) {
+                    weekInMonthSumFlex += currentMonth.flexTimes[day];
+                    console.log(currentMonth.nameOfDays[day] + "Flex: " + currentMonth.flexTimes[day]);
+                }
+                if (currentMonth.nameOfDays[day] === 7) {
+                    console.log("ennnnd");
+                    currentWeekNumbers++;
+                }
+            }
+        }
+        if (weekInMonthSumFlex < 0) {
+            monthRow.append($('<td>').text(weekInMonthSumFlex).addClass('empty-cell').addClass('month-week-Sum').addClass('back-red'));
+        } else {
+            monthRow.append($('<td>').text(weekInMonthSumFlex).addClass('empty-cell').addClass('month-week-Sum').addClass('back-green'));
+        }
+        
+    }
+
+    return monthRow;
+}
+
+function populateYearView(year) {
+    $.ajax({
+        url: '/server/get-y-time-of-user?userId=' + userId +
+            '&year=' + year,
+        type: 'GET',
+        success: function (data) {
+            var calendarView = $('.Year-view');
+            var element = $('#tabel-year');
+            element.remove();
+            // Generera kalenderstrukturen
+            var calendarTable = $('<table>').addClass('calendar-table');
+            calendarTable.attr("id", "tabel-year");
+            var calendarHeader = $('<thead>');
+            var calendarBody = $('<tbody>');
+
+            var monthNames = [
+                "   ", "Jan", "Feb", "Mar", "Apr", "Maj", "Jun",
+                "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"
+            ];
+            var headerRow = $('<tr>');
+            for (var i = 0; i < 12; i++) {
+                var monthCell = $('<th>').text(monthNames[i]);
+                headerRow.append(monthCell);
+                //console.log(monthNames[i]);
+            }
+
+            calendarHeader.append(headerRow);
+            calendarTable.append(calendarHeader);
+
+            var monthRow = $('<tr>');
+
+            // Lägg till tomma celler för dagar före första dagen i månaden
+            monthRow.append($('<td>').text("SUM").addClass('empty-cell').addClass('month-Sum'));
+            for (var i = 0; i < 11; i++) {
+                var currentMonth = data.months[i];
+                var monthSumFlex = 0;
+                for (let day = 0; day < currentMonth.totalDays; day++) {
+                    monthSumFlex += currentMonth.flexTimes[day];
+                    //console.log(currentMonth.flexTimes[day]);
+                }
+                if (monthSumFlex < 0) {
+                    monthRow.append($('<td>').text(monthSumFlex).addClass('empty-cell').addClass('month-Sum').addClass('back-red'));
+                } else {
+                    monthRow.append($('<td>').text(monthSumFlex).addClass('empty-cell').addClass('month-Sum').addClass('back-green'));
+                }
+            }
+            // Lägg till den sista veckoraden
+            // deta går nog att få till en iterativ funktion
+            calendarBody.append(monthRow);
+
+            for (let week = 1; week < 6; week++) {
+                // Lägg till veckans sumering
+                calendarBody.append(generatweekForMonthInYerWiew(data, week));
+            }
+
+
+            // Lägg till kalenderstrukturen i HTML
+            calendarTable.append(calendarBody);
+            calendarView.append(calendarTable);
+
+
+
+        },
+        error: function (xhr, status, error) {
+            console.error('Ett fel uppstod:', error);
+        }
+    });
+
 }
 
 function getNextMonth() {
@@ -119,9 +240,9 @@ function populateMonthView(month) {
     var currentDate = new Date();
 
     $.ajax({
-        url: '/server/get-m-time-of-user?userId=' + userId + 
-        '&month=' + month +
-        '&year=' + currentDate.getFullYear(),
+        url: '/server/get-m-time-of-user?userId=' + userId +
+            '&month=' + month +
+            '&year=' + currentDate.getFullYear(),
         type: 'GET',
         success: function (data) {
             var calendarView = $('.month-view');
@@ -132,7 +253,7 @@ function populateMonthView(month) {
             calendarTable.attr("id", "tabel-month");
             var calendarHeader = $('<thead>');
             var calendarBody = $('<tbody>');
-            
+
 
             // skapa månads namn
             var monthNames = [
@@ -143,7 +264,7 @@ function populateMonthView(month) {
             calendarMonthLabel.setAttribute("data-month", data.currentMonth);
 
             // Skapa veckodagshuvud
-            var weekdayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun'];
+            var weekdayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
             var headerRow = $('<tr>');
             for (var i = 0; i < 7; i++) {
                 var weekdayCell = $('<th>').text(weekdayNames[i]);
@@ -226,14 +347,14 @@ function populateMonthView(month) {
 function getWeek(date) {
     // Kopiera datumet för att undvika ändringar i det ursprungliga objektet
     var copiedDate = new Date(date.getTime());
-    
+
     // Sätt veckodagen till söndag (0) för att undvika problem med veckobrytningar
     copiedDate.setUTCHours(0, 0, 0, 0);
     copiedDate.setDate(copiedDate.getDate() + 4 - (copiedDate.getDay() || 7));
-    
+
     // Beräkna veckonumret
     var yearStart = new Date(copiedDate.getFullYear(), 0, 1);
     var weekNumber = Math.ceil((((copiedDate - yearStart) / 86400000) + 1) / 7);
-    
+
     return weekNumber;
-  }
+}
